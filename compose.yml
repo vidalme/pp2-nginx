@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  proxy:
+    image: vidalme/vimginx
+    build:
+      context: .
+      dockerfile: ./vimginx.Dockerfile
+    container_name: proxy
+    ports:
+      - "80:80" 
+      - "443:443"
+    volumes:
+      - ./nginx:/etc/nginx
+    depends_on:
+      - laranja
+      - verde
+      - azul
+
+  laranja:
+    image: laranja
+    container_name: laranja
+    build:
+      dockerfile: laranja.Dockerfile
+
+  verde:
+    image: verde
+    container_name: verde
+    build:
+      dockerfile: verde.Dockerfile
+
+  azul:
+    image: azul
+    container_name: azul
+    build:
+      dockerfile: azul.Dockerfile
+
+
